@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="second.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />">
+</head>
+<body>
+   <div class="card">
+         <div class="search">
+            <input class="searchbar" type="text" placeholder="enter city name">
+            <button class="searchicon"><i class="fa-solid fa-magnifying-glass"></i></button>
+           
+         </div>
+         <div class="weather">
+            <img src="clouds.png" alt="img" >
+            <h1 class="temp">25°C</h1>
+            <h2 class="location">India</h2>
+         
+         <div class="details">
+            <div class="inner">
+                <img class="imageboth" src="wind.png" alt="img">
+                <div>
+                <p>wind</p>
+                <p class="wind">6 km\h</p>
+                </div>
+            </div>
+            <div class="inner">
+                <img class="imagehumid imageboth" src="humidity.png" alt="img">
+                <div>
+                <p>humidity</p>
+                <p class="humidity">48%</p>
+                </div>
+            </div>
+         </div>
+   </div>
+
+
+   
+
+<script>
+
+async function checkWeather(location) {
+  const apilink = 'https://api.openweathermap.org/data/2.5/weather?&units=metric'; 
+  const apikey = '9fb491bbfc9e387d8a2aa8dc39af8f47'; 
+
+  const response = await fetch(`${apilink}&appid=${apikey}&q=${location}`);
+  const data = await response.json(); 
+  console.log(data);
+
+  document.querySelector(".location").innerHTML = data.name;
+  document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+  document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+  document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+
+  const weathericon = document.querySelector(".weather img");
+
+  if (data.weather[0].main=="Clouds")
+  {
+    weathericon.src = "clouds.png";
+  }
+  else if (data.weather[0].main=="Clear")
+  {
+    weathericon.src = "clear.png";
+  }
+   else if (data.weather[0].main=="Drizzle")
+  {
+    weathericon.src = "drizzle.png";
+  }
+  else if (data.weather[0].main=="Mist")
+  {
+    weathericon.src = "mist.png";
+  }
+  else if (data.weather[0].main=="Rain")
+  {
+    weathericon.src = "rain.png";
+  }
+  else if (data.weather[0].main=="Haze")
+  {
+    weathericon.src = "snow.png";
+  }
+ document.querySelector(".weather").style.display="block";
+}
+
+  const bar = document.querySelector(".search input");
+  const btn = document.querySelector(".search button");
+  
+
+
+var city = "delhi";
+checkWeather(city);
+
+btn.addEventListener("click", () => {
+  checkWeather(bar.value);
+});
+
+ 
+// app.js
+// async function checkWeather(location) {
+//   const apilink = 'https://api.openweathermap.org/data/2.5/weather?&units=metric';
+//   const apikey = '9fb491bbfc9e387d8a2aa8dc39af8f47'; 
+
+//     const response = await fetch(`${apilink}&appid=${apikey}&q=${location}`);
+//     const data = await response.json();
+
+//     document.querySelector(".location").innerHTML = data.name;
+//     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+//     document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+//     document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+   
+// }
+
+// class="weather-icon"
+//   const searchInput = document.querySelector(".search input");
+//   const searchButton = document.querySelector(".search button");
+
+//   // Initial weather check for a default city
+//   const defaultCity = "Delhi";
+//   checkWeather(defaultCity);
+
+//   // Event listener for the search button
+//   searchButton.addEventListener("click", () => {
+//     checkWeather(searchInput.value);
+//   });
+
+
+</script>
+  
+</body>
+</html>
+<!-- 
+
+
+// app.js
+async function checkWeather(location) {
+  const apilink = 'https://api.openweathermap.org/data/2.5/weather?&units=metric';
+  const apikey = 'YOUR_API_KEY'; // Replace with your actual API key
+
+  try {
+    const response = await fetch(`${apilink}&appid=${apikey}&q=${location}`);
+    const data = await response.json();
+
+    document.querySelector(".location").innerHTML = data.name;
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
+    document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+    document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    // Handle the error (e.g., display a message to the user)
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.querySelector(".search input");
+  const searchButton = document.querySelector(".search button");
+
+  // Initial weather check for a default city
+  const defaultCity = "Delhi";
+  checkWeather(defaultCity);
+
+  // Event listener for the search button
+  searchButton.addEventListener("click", () => {
+    checkWeather(searchInput.value);
+  });
+});
+
+</script> -->
